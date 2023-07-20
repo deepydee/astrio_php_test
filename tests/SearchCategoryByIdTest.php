@@ -11,7 +11,7 @@ final class SearchCategoryByIdTest extends TestCase
 
     protected function setUp(): void
     {
-        require_once 'src/searchCategoryById.php';
+        require_once 'src/functions/searchCategoryById.php';
 
         $this->categories = [
             [

@@ -8,7 +8,7 @@ final class IsCorrectHTMLStructureTest extends TestCase
 {
     protected function setUp(): void
     {
-        require_once 'src/isCorrectHTMLStructure.php';
+        require_once 'src/functions/isCorrectHTMLStructure.php';
     }
 
     public function testCorrect_HTML_StructureReturnsTrue(): void
