@@ -1,0 +1,16 @@
+{
+  "name": "synthex/astrio_php_test",
+  "description": "Hiring Tests",
+  "authors": [
+    {
+      "name": "Vitaliy Semenov",
+      "email": "synthex@bk.ru"
+    }
+  ],
+  "scripts": {
+    "test": "phpunit --colors=always --testdox"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10"
+  }
+}
