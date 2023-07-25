@@ -113,3 +113,18 @@ General wishes on the fulfillment of all tasks: for 1 and 3 tasks you need to cr
 We wish you good luck in completing the assignment!
 
 Thank you.
+
+## Installation
+
+### Prerequisites
+
+1. PHP Version: Ensure that you have PHP installed on your system (PHP 8.1 or later).
+2. Composer
+
+## Installation steps
+
+1. Open a terminal or command prompt
+2. Clone this repo `https://github.com/deepydee/astrio_php_test.git`
+3. Change your current directory to your project folder `cd astrio_php_test`
+4. Run the following command to install PHPUnit `Composer install`
+5. Run tests `composer test`
