@@ -25,42 +25,42 @@ final class IsCorrectHTMLStructureTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testEmptyInputReturnsTrue()
+    public function testEmptyInputReturnsTrue(): void
     {
         $emptyTags = [];
         $result = isCorrectHTMLStructure($emptyTags);
         $this->assertTrue($result);
     }
 
-    public function testInvalidTagsReturnsFalse()
+    public function testInvalidTagsReturnsFalse(): void
     {
         $invalidTags = ['<a>', '<div>', 'invalid', '</a>'];
         $result = isCorrectHTMLStructure($invalidTags);
         $this->assertFalse($result);
     }
 
-    public function testNestedCorrectHTMLStructureReturnsTrue()
+    public function testNestedCorrectHTMLStructureReturnsTrue(): void
     {
         $nestedCorrectTags = ['<a>', '<div>', '<span>', '</span>', '</div>', '</a>'];
         $result = isCorrectHTMLStructure($nestedCorrectTags);
         $this->assertTrue($result);
     }
 
-    public function testMismatchedClosingTagReturnsFalse()
+    public function testMismatchedClosingTagReturnsFalse(): void
     {
         $mismatchedClosingTag = ['<a>', '<div>', '</span>', '</div>', '</a>'];
         $result = isCorrectHTMLStructure($mismatchedClosingTag);
         $this->assertFalse($result);
     }
 
-    public function testOnlyOpeningTagsReturnsFalse()
+    public function testOnlyOpeningTagsReturnsFalse(): void
     {
         $onlyOpeningTags = ['<a>', '<div>', '<span>'];
         $result = isCorrectHTMLStructure($onlyOpeningTags);
         $this->assertFalse($result);
     }
 
-    public function testOnlyClosingTagsReturnsFalse()
+    public function testOnlyClosingTagsReturnsFalse(): void
     {
         $onlyClosingTags = ['</a>', '</div>', '</span>'];
         $result = isCorrectHTMLStructure($onlyClosingTags);
