@@ -28,6 +28,23 @@ class FileBoxTest extends TestCase
         $this->assertSame($fileBox1, $fileBox2);
     }
 
+    public function testFileBoxSingletonInstanceCantBeCloned(): void
+    {
+        $instance1 = FileBox::getInstance(filePath: self::$dataFile);
+        $instance2 = FileBox::getInstance(filePath: self::$dataFile);
+
+        $this->assertSame($instance1, $instance2, 'Both instances should be the same.');
+
+        try {
+            $clonedInstance = clone $instance1;
+        } catch (\RuntimeException $e) {
+            $this->assertSame('Cloning the FileBox singleton instance is not allowed.', $e->getMessage());
+            return;
+        }
+
+        $this->fail('Expected exception not thrown when cloning.');
+    }
+
     public function testSaveAndLoadData(): void
     {
         $fileBox = FileBox::getInstance(filePath: self::$dataFile);

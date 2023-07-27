@@ -27,6 +27,11 @@ class DBBox extends AbstractBox
         return self::$instance;
     }
 
+    public function __clone()
+    {
+        throw new \RuntimeException('Cloning the DBBox singleton instance is not allowed.');
+    }
+
     public function save(): void
     {
         try {

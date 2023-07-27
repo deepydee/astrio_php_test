@@ -23,6 +23,12 @@ class FileBox extends AbstractBox
         return self::$instance;
     }
 
+    public function __clone()
+    {
+        throw new \RuntimeException('Cloning the FileBox singleton instance is not allowed.');
+    }
+
+
     public function save(): void
     {
         file_put_contents($this->filePath, serialize($this->data));

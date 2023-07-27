@@ -34,6 +34,25 @@ class DBBoxTest extends TestCase
         $this->assertSame($dbBox1, $dbBox2);
     }
 
+    public function testFileBoxSingletonInstanceCantBeCloned(): void
+    {
+        $tableName = 'test_table';
+
+        $instance1 = DBBox::getInstance(self::$pdo, $tableName);
+        $instance2 = DBBox::getInstance(self::$pdo, $tableName);
+
+        $this->assertSame($instance1, $instance2, 'Both instances should be the same.');
+
+        try {
+            $clonedInstance = clone $instance1;
+        } catch (\RuntimeException $e) {
+            $this->assertSame('Cloning the DBBox singleton instance is not allowed.', $e->getMessage());
+            return;
+        }
+
+        $this->fail('Expected exception not thrown when cloning.');
+    }
+
     public function testSaveAndLoadData(): void
     {
         $tableName = 'test_table';
