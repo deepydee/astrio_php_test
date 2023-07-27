@@ -63,6 +63,35 @@ class FileBoxTest extends TestCase
         $this->assertNull($fileBox->getData('non_existing_key'));
     }
 
+    public function testDataWithExistingKeysIsReplacedByNewValues(): void
+    {
+        $fileBox = FileBox::getInstance(filePath: self::$dataFile);
+
+        $fileBox->setData('name', 'John');
+        $fileBox->setData('age', 30);
+        $fileBox->setData('email', 'john@example.com');
+        $fileBox->save();
+
+        $loadedFileBox = FileBox::getInstance(filePath: self::$dataFile);
+
+        $this->assertEquals('John', $loadedFileBox->getData('name'));
+        $this->assertEquals(30, $loadedFileBox->getData('age'));
+        $this->assertEquals('john@example.com', $loadedFileBox->getData('email'));
+
+        // Update existing keys with new values
+        $loadedFileBox->setData('name', 'Jane');
+        $loadedFileBox->setData('age', 32);
+        $loadedFileBox->save();
+
+        // Create a new FileBox instance to load the updated data
+        $updatedFileBox = FileBox::getInstance(filePath: self::$dataFile);
+
+        // Verify that the data has been updated correctly
+        $this->assertEquals('Jane', $updatedFileBox->getData('name'));
+        $this->assertEquals(32, $updatedFileBox->getData('age'));
+        $this->assertEquals('john@example.com', $updatedFileBox->getData('email'));
+    }
+
     protected function tearDown(): void
     {
         if (file_exists(self::$dataFile)) {

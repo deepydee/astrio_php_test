@@ -32,6 +32,15 @@ class DBBox extends AbstractBox
         throw new \RuntimeException('Cloning the DBBox singleton instance is not allowed.');
     }
 
+    public function setData(string $key, int|float|string|bool|array $value): void
+    {
+        if (array_key_exists($key, $this->data)) {
+            $this->data[$key] = $value;
+        } else {
+            parent::setData($key, $value);
+        }
+    }
+
     public function save(): void
     {
         try {

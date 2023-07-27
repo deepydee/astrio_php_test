@@ -75,6 +75,37 @@ class DBBoxTest extends TestCase
         $this->assertNull($dbBox->getData('non_existing_key'));
     }
 
+    public function testDataWithExistingKeysIsReplacedByNewValues(): void
+    {
+        $tableName = 'test_table';
+
+        $dbBox = DBBox::getInstance(self::$pdo, $tableName);
+
+        $dbBox->setData('name', 'John');
+        $dbBox->setData('age', 30);
+        $dbBox->setData('email', 'john@example.com');
+        $dbBox->save();
+
+        $loadedFileBox = DBBox::getInstance(self::$pdo, $tableName);
+
+        $this->assertEquals('John', $loadedFileBox->getData('name'));
+        $this->assertEquals(30, $loadedFileBox->getData('age'));
+        $this->assertEquals('john@example.com', $loadedFileBox->getData('email'));
+
+        // Update existing keys with new values
+        $loadedFileBox->setData('name', 'Jane');
+        $loadedFileBox->setData('age', 32);
+        $loadedFileBox->save();
+
+        // Create a new FileBox instance to load the updated data
+        $updatedFileBox = DBBox::getInstance(self::$pdo, $tableName);
+
+        // Verify that the data has been updated correctly
+        $this->assertEquals('Jane', $updatedFileBox->getData('name'));
+        $this->assertEquals(32, $updatedFileBox->getData('age'));
+        $this->assertEquals('john@example.com', $updatedFileBox->getData('email'));
+    }
+
     // public function testSaveMethodWithTransactions(): void
     // {
     //     $tableName = 'test_table';
